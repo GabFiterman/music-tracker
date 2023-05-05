@@ -31,38 +31,37 @@
 </template>
 
 <script>
-import AuthenticationService from "../../../server/services/AuthenticationService";
+import AuthenticationService from '../../../server/services/AuthenticationService'
 export default {
-  name: "Register",
-  data() {
+  name: 'Register',
+  data () {
     return {
       email: undefined,
       password: undefined,
       error: null
-    };
+    }
   },
   methods: {
-    async register() {
+    async register () {
       try {
         await AuthenticationService.register({
           email: this.email,
           password: this.password
-        });
-        this.error = null;
+        })
+        this.error = null
       } catch (err) {
-        this.error = err.response.data.error;
+        this.error = err.response.data.error
       }
     }
   }
-};
+}
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .Register {
   height: 100vh;
   width: 100vw;
   background-color: #E8D4ED;
-}
 
 .register__card {
   min-height: 65vh;
@@ -106,5 +105,6 @@ export default {
   border-radius: 2rem;
   background-color: #4d0f56 !important;
   color: white;
+}
 }
 </style>
