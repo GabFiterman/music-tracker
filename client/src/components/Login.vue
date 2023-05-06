@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid class="Register">
+  <v-container fluid class="Login">
     <v-layout justify-center align-center>
       <v-flex xs6>
-        <v-card class="register__card">
-          <v-card-title class="register__card--title">Register</v-card-title>
-          <div class="register__card--inputGroup">
+        <v-card class="login__card">
+          <v-card-title class="login__card--title">Login</v-card-title>
+          <div class="login__card--inputGroup">
             <input
               type="text"
               name="email"
@@ -20,8 +20,8 @@
             />
           </div>
           <!-- TODO: verify another way to show text with html tags. Simple {{ don't works }}  -->
-          <div v-html="error" class="register__error" />
-          <v-btn class="register__card--button" @click="register">Register</v-btn>
+          <div v-html="error" class="login__error" />
+          <v-btn class="login__card--button" @click="login">Login</v-btn>
         </v-card>
       </v-flex>
     </v-layout>
@@ -31,7 +31,7 @@
 <script>
 import AuthenticationService from '../../../server/services/AuthenticationService'
 export default {
-  name: 'Register',
+  name: 'Login',
   data () {
     return {
       email: undefined,
@@ -40,9 +40,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthenticationService.register({
+        await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
@@ -56,11 +56,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.Register {
+.Login {
   height: 100vh;
   background-color: #E8D4ED;
 
-.register__card {
+.login__card {
   min-height: 65vh;
   max-width: 35vw;
   margin: 0 auto;
@@ -71,26 +71,26 @@ export default {
   align-items: center;
 }
 
-.register__card--title {
+.login__card--title {
   justify-content: center;
   font-size: 2rem;
   font-weight: bold;
   color: #4d0f56;
 }
 
-.register__card--inputGroup input{
+.login__card--inputGroup input{
   margin: 2vh 0;
   color: #9673a0;
 }
 
-.register__error {
+.login__error {
   color: #c90000;
   font-style: italic;
   font-size: 0.85rem;
   max-width: 25vw;
 }
 
-.register__card--button {
+.login__card--button {
   margin: 2rem 0;
   width: 15vw;
   border-radius: 2rem;
