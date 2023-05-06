@@ -4,7 +4,11 @@
       <v-flex xs6>
         <v-card class="auth__card">
           <v-card-title class="auth__card--title">Register</v-card-title>
-          <form name="musicTrackerForm" autocomplete="off" class="auth__card--inputGroup">
+          <form
+            name="musicTrackerForm"
+            autocomplete="off"
+            class="auth__card--inputGroup"
+          >
             <v-text-field
               type="text"
               name="email"
@@ -35,32 +39,32 @@
 </template>
 
 <script>
-import AuthenticationService from '../../../server/services/AuthenticationService'
+import AuthenticationService from "../../../server/services/AuthenticationService";
 export default {
-  name: 'Register',
-  data () {
+  name: "Register",
+  data() {
     return {
       email: undefined,
       password: undefined,
-      error: null
-    }
+      error: null,
+    };
   },
   methods: {
-    async register () {
+    async register() {
       try {
         await AuthenticationService.register({
           email: this.email,
-          password: this.password
-        })
-        this.error = null
+          password: this.password,
+        });
+        this.error = null;
       } catch (err) {
-        this.error = err.response.data.error
+        this.error = err.response.data.error;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-@import '../styles/Auth.scss'
+@import "../styles/Auth.scss";
 </style>
