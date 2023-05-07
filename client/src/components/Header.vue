@@ -11,11 +11,11 @@
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
-      <v-btn elevation="0" class="Header__button" dark>
+      <v-btn elevation="0" class="Header__button" dark v-if="$store.state.isUserLoggedIn">
         <router-link to="/login"> Login </router-link>
       </v-btn>
 
-      <v-btn elevation="0" class="Header__button" dark>
+      <v-btn elevation="0" class="Header__button" dark v-if="!$store.state.isUserLoggedIn">
         <router-link to="/register"> Sign Up </router-link>
       </v-btn>
     </v-toolbar-items>
