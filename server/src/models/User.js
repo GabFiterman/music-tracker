@@ -1,40 +1,39 @@
 const Promisse = require("bluebird");
-const bcrypt = Promisse.promisifyAll(require("bcrypt-nodejs"));
+const bcrypt = Promisse.promisifyAll(require("bcrypt"));
 
-function hashPassword (user, options) {
-  const SALT_FACTOR = 8
-  console.log('hasPassword')
-  if (!user.changed('password')) {
+async function hashPassword(user, options) {
+  const SALT_ROUNDS = 8;
+  if (!user.changed("password")) {
     return;
   }
 
-  return bcrypt
-    .genSaltAsync(SALT_FACTOR)
-    .then(salt => bcrypt.hashAsync(user.password, salt, null))
-    .then(hash => {
-      user.setDataValue('password', hash)
-    })
+  const hash = await bcrypt.hash(user.password, SALT_ROUNDS);
+  user.setDataValue("password", hash);
 }
 
-
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define("User", {
-    email: {
-      type: DataTypes.STRING,
-      unique: true,
+  const User = sequelize.define(
+    "User",
+    {
+      email: {
+        type: DataTypes.STRING,
+        unique: true,
+      },
+      password: DataTypes.STRING,
     },
-    password: DataTypes.STRING,
-  }, {
-    hooks: {
-      beforeCreate: hashPassword,
-      beforeUpdate: hashPassword,
-      beforeSave: hashPassword,
+    {
+      hooks: {
+        beforeCreate: hashPassword,
+        beforeUpdate: hashPassword,
+        // beforeSave: hashPassword,
+      },
     }
-  })
+  );
 
-  User.prototype.comparePassword = function (password) {
-    return bcrypt.compareAsync(password, this.password)
-  }
+  User.prototype.comparePassword = async function (password) {
+    const isPasswordValid = await bcrypt.compare(password, this.password);
+    return isPasswordValid;
+  };
 
   return User;
 };
