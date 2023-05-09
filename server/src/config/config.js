@@ -11,6 +11,6 @@ module.exports = {
     }
   },
   authentication: {
-    jtwSecret: process.env.JTW_SECRET || 'secret'
+    jwtSecret: process.env.JWT_SECRET || 'secret'
   }
 }

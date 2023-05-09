@@ -1,10 +1,10 @@
 const { User } = require("../models");
-const jtw = require('jsonwebtoken')
+const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
-function jtwSignUser (user) {
+function jwtSignUser (user) {
     const ONE_WEEK = 60 * 60 * 24 * 7
-    return jtw.sign(user, config.authentication.jtwSecret, {
+    return jwt.sign(user, config.authentication.jwtSecret, {
       expiresIn: ONE_WEEK
     })
 }
@@ -17,9 +17,8 @@ module.exports = {
       const userJson = user.toJSON()
       res.send({
         user: userJson,
-        token: jtwSignUser(userJson)
+        token: jwtSignUser(userJson)
       });
-
 
     } catch (err) {
       res.status(400).send({
@@ -42,7 +41,7 @@ module.exports = {
         })
       }
 
-      //TODO: preciso descobrir pq diabos fico caindo aqui direto, acredito que ele esteja caindo no if antes do resultado do comparePassword
+      //TODO: preciso descobrir pq diabos fico caindo aqui diretos
       const isPasswordValid = await user.comparePassword(password)
       if(!isPasswordValid) {
         return res.status(403).send({
@@ -53,7 +52,7 @@ module.exports = {
       const userJson = user.toJSON()
       res.send({
         user: userJson,
-        token: jtwSignUser(userJson)
+        token: jwtSignUser(userJson)
       });
 
     } catch (err) {
