@@ -2,33 +2,33 @@
   <v-app id="app">
     <v-container fluid px-0 py-0>
       <Header v-if="showHeader" />
-        <main :class="showHeader ? 'Header__margin__ajust' : ''">
-          <router-view/>
-        </main>
+      <main :class="showHeader ? 'Header__margin__ajust' : ''">
+        <router-view />
+      </main>
     </v-container>
   </v-app>
 </template>
 
 <script>
-import Header from './components/Header.vue'
+import Header from "./components/Header.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Header
+    Header,
   },
   computed: {
-    showHeader () {
-      const actualRoute = this.$route.name.toLowerCase()
-      return actualRoute !== 'register' && actualRoute !== 'login'
-    }
-  }
-}
+    showHeader() {
+      const actualRoute = this.$route.name.toLowerCase();
+      return actualRoute !== "register" && actualRoute !== "login";
+    },
+  },
+};
 </script>
 
 <style lang="scss">
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -46,8 +46,7 @@ export default {
   }
 
   input:focus {
-    outline: 1px solid #E8D4ED;
+    outline: 1px solid #e8d4ed;
   }
 }
-
 </style>

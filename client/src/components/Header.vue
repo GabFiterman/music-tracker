@@ -1,30 +1,22 @@
 <template>
   <v-toolbar elevation="1" class="Header purple darken-3 white--text">
     <v-toolbar-title>
-      <router-link to="/" class="Header__logo">
-        Music tracker
-      </router-link>
+      <router-link to="/" class="Header__logo"> Music tracker </router-link>
     </v-toolbar-title>
 
-    <v-toolbar-items style="margin-left: 2vw;">
-      <v-btn elevation="0" class="Header__button" dark>
-        Browse
-      </v-btn>
+    <v-toolbar-items style="margin-left: 2vw">
+      <v-btn elevation="0" class="Header__button" dark> Browse </v-btn>
     </v-toolbar-items>
 
     <v-spacer></v-spacer>
 
     <v-toolbar-items>
       <v-btn elevation="0" class="Header__button" dark>
-        <router-link to="/login">
-          Login
-        </router-link>
+        <router-link to="/login"> Login </router-link>
       </v-btn>
 
       <v-btn elevation="0" class="Header__button" dark>
-        <router-link to="/register">
-          Sign Up
-        </router-link>
+        <router-link to="/register"> Sign Up </router-link>
       </v-btn>
     </v-toolbar-items>
   </v-toolbar>
@@ -32,8 +24,8 @@
 
 <script>
 export default {
-  name: 'Header'
-}
+  name: "Header",
+};
 </script>
 
 <style lang="scss" scoped>

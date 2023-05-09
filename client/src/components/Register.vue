@@ -1,27 +1,37 @@
 <template>
-  <v-container fluid class="Register">
+  <v-container fluid class="Auth">
     <v-layout justify-center align-center>
       <v-flex xs6>
-        <v-card class="register__card">
-          <v-card-title class="register__card--title">Register</v-card-title>
-          <div class="register__card--inputGroup">
-            <input
+        <v-card class="auth__card">
+          <v-card-title class="auth__card--title">Register</v-card-title>
+          <form
+            name="musicTrackerForm"
+            autocomplete="off"
+            class="auth__card--inputGroup"
+          >
+            <v-text-field
               type="text"
               name="email"
               v-model="email"
               placeholder="email"
+              rounded
+              dense
+              autocomplete="email"
             />
             <br />
-            <input
+            <v-text-field
               type="password"
               name="password"
               v-model="password"
               placeholder="password"
+              autocomplete="new-password"
+              rounded
+              dense
             />
-          </div>
+          </form>
           <!-- TODO: verify another way to show text with html tags. Simple {{ don't works }}  -->
-          <div v-html="error" class="register__error" />
-          <v-btn class="register__card--button" @click="register">Register</v-btn>
+          <div v-html="error" class="auth__error" />
+          <v-btn class="auth__card--button" @click="register">Register</v-btn>
         </v-card>
       </v-flex>
     </v-layout>
@@ -29,74 +39,32 @@
 </template>
 
 <script>
-import AuthenticationService from '../../../server/services/AuthenticationService'
+import AuthenticationService from "../../../server/services/AuthenticationService";
 export default {
-  name: 'Register',
-  data () {
+  name: "Register",
+  data() {
     return {
       email: undefined,
       password: undefined,
-      error: null
-    }
+      error: null,
+    };
   },
   methods: {
-    async register () {
+    async register() {
       try {
         await AuthenticationService.register({
           email: this.email,
-          password: this.password
-        })
-        this.error = null
+          password: this.password,
+        });
+        this.error = null;
       } catch (err) {
-        this.error = err.response.data.error
+        this.error = err.response.data.error;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
-.Register {
-  height: 100vh;
-  background-color: #E8D4ED;
-
-.register__card {
-  min-height: 65vh;
-  max-width: 35vw;
-  margin: 0 auto;
-  margin-top: 15vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.register__card--title {
-  justify-content: center;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #4d0f56;
-}
-
-.register__card--inputGroup input{
-  margin: 2vh 0;
-  color: #9673a0;
-}
-
-.register__error {
-  color: #c90000;
-  font-style: italic;
-  font-size: 0.85rem;
-  max-width: 25vw;
-}
-
-.register__card--button {
-  margin: 2rem 0;
-  width: 15vw;
-  border-radius: 2rem;
-  background-color: #4d0f56 !important;
-  color: white;
-  border-top: #C490D1 2px solid;
-}
-}
+@import "../styles/Auth.scss";
 </style>
