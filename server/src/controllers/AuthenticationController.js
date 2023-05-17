@@ -1,12 +1,12 @@
-const {User} = require('../models')
+const { User } = require("../models");
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
 function jwtSignUser (user) {
-  const ONE_WEEK = 60 * 60 * 24 * 7
-  return jwt.sign(user, config.authentication.jwtSecret, {
-    expiresIn: ONE_WEEK
-  })
+    const ONE_WEEK = 60 * 60 * 24 * 7
+    return jwt.sign(user, config.authentication.jwtSecret, {
+      expiresIn: ONE_WEEK
+    })
 }
 
 module.exports = {
@@ -17,7 +17,8 @@ module.exports = {
       res.send({
         user: userJson,
         token: jwtSignUser(userJson)
-      })
+      });
+
     } catch (err) {
       res.status(400).send({
         error: 'This email account is already in use.'
